@@ -94,7 +94,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _message_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./message.js */ \"./wwwroot/Components/message.js\");\n\nlet element = document.getElementById('root');\nObject(_message_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(element, 'hi back!');\n\n//# sourceURL=webpack:///./wwwroot/Components/app.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _message_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./message.js */ \"./wwwroot/Components/message.js\");\n\nvar element = document.getElementById('root');\nObject(_message_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(element, 'hi back!');\n\n//# sourceURL=webpack:///./wwwroot/Components/app.js?");
 
 /***/ }),
 
@@ -106,7 +106,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _mes
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = (function(element, text) {\n    element.innerHTML = text;\n });\n\n//# sourceURL=webpack:///./wwwroot/Components/message.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = (function (element, text) {\n  element.innerHTML = \"The message is: \".concat(text);\n});\n\n//# sourceURL=webpack:///./wwwroot/Components/message.js?");
 
 /***/ })
 
