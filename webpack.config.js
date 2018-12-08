@@ -1,11 +1,11 @@
 const path = require('path');
 module.exports = {
    mode: 'development',
-   entry: { 'main': './wwwroot/Components/app.js' },
+   entry: { 'main': './wwwroot/components/main/app.js' },
    output: {
-      path: path.resolve(__dirname, 'wwwroot/Components'),
-      filename: 'bundle.js',
-      publicPath: 'Components/'
+      path: path.resolve(__dirname, 'wwwroot/bundle'),
+      publicPath: 'bundle/',
+      filename: 'bundle.js'
    },
    module: {
       rules: [
@@ -15,7 +15,7 @@ module.exports = {
          use: {
             loader: 'babel-loader',
             options: {
-               presets: ['@babel/preset-env']
+               presets: ['@babel/preset-react','@babel/preset-env']
             }
          }
       }
