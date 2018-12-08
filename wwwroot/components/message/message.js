@@ -12,7 +12,7 @@ export default class Message extends React.Component {
    render() {
       return <div>
       <h3>Message: {this.state.message}</h3>
-      Enter message: <input type="text" value={this.state.message} onChange={this.handleChange} />
+      <span className="text-primary">Enter message: <input type="text" value={this.state.message} onChange={this.handleChange} /></span>
       </div>;
    }
 }
