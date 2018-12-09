@@ -36,6 +36,10 @@ namespace ReactBookLibrary
                 name: "default",
                 template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+
+            app.UseStatusCodePagesWithRedirects("/error/{0}");
+
         }
     }
 }

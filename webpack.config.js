@@ -1,7 +1,7 @@
 const path = require('path');
 module.exports = {
    mode: 'development',
-   entry: { 'main': './wwwroot/components/main/app.js' },
+   entry: { 'main': './app.js' },
    output: {
       path: path.resolve(__dirname, 'wwwroot/bundle'),
       publicPath: 'bundle/',
