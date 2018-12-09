@@ -38,7 +38,7 @@ namespace ReactBookLibrary
             });
 
 
-            app.UseStatusCodePagesWithRedirects("/error/{0}");
+            app.UseStatusCodePagesWithRedirects("/error");
 
         }
     }
