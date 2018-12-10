@@ -9,6 +9,7 @@ export default class Book extends React.Component {
 
         this.deleteBook = this.deleteBook.bind(this);
         this.editBook = this.editBook.bind(this);
+        this.addBook = this.addBook.bind(this);
     }
 
     componentDidMount() {
@@ -43,7 +44,11 @@ export default class Book extends React.Component {
     }
 
     editBook(id) {
-        this.props.history.push("/addbook/" + id);
+        this.props.history.push("/editbook/" + id);
+    }
+
+    addBook(id) {
+        this.props.history.push("/addbook");
     }
 
     render() {
@@ -57,7 +62,7 @@ export default class Book extends React.Component {
                                     <h2>Manage <b>Books</b></h2>
                                 </div>
                                 <div className="col-sm-6">
-                                    <a href="#addEmployeeModal" className="btn btn-success" data-toggle="modal"><i className="material-icons"><FaPlusCircle /></i> <span>Add New Book</span></a>
+                                    <a onClick={(id) => this.addBook(0)}  className="btn btn-success"><i className="material-icons"><FaPlusCircle /></i> <span>Add New Book</span></a>
                                 </div>
                             </div>
                         </div>

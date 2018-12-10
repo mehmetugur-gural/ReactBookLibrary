@@ -46,6 +46,7 @@ export default class App extends React.Component {
                         <Route exact path="/" component={Book} />
                         <Route path="/book" component={Book} />
                         <Route path="/addbook" component={AddBook} />
+                        <Route path="/editbook/:id" component={AddBook} />
                         <Route path="/bookcategory" component={BookCategory} />
                         <Route path="/author" component={Author} />
                         <Route component={NotFound} />

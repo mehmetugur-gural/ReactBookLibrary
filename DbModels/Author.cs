@@ -1,3 +1,4 @@
+
 namespace ReactBookLibrary.DbModels
 {
     public class Author {
