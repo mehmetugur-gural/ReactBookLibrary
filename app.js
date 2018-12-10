@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
 import Book from './wwwroot/components/book/book.js';
+import AddBook from './wwwroot/components/book/addbook.js';
 import BookCategory from './wwwroot/components/bookcategory/bookcategory.js';
 import Author from './wwwroot/components/author/author.js';
 import NotFound from './wwwroot/components/errorpages/notfound.js';
@@ -44,6 +45,7 @@ export default class App extends React.Component {
                      <Switch>
                         <Route exact path="/" component={Book} />
                         <Route path="/book" component={Book} />
+                        <Route path="/addbook" component={AddBook} />
                         <Route path="/bookcategory" component={BookCategory} />
                         <Route path="/author" component={Author} />
                         <Route component={NotFound} />

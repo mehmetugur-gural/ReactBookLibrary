@@ -3,6 +3,49 @@ import { FaPlusCircle, FaTrash, FaPen } from 'react-icons/fa';
 
 export default class Book extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = { bookData: [] };
+
+        this.deleteBook = this.deleteBook.bind(this);
+        this.editBook = this.editBook.bind(this);
+    }
+
+    componentDidMount() {
+        fetch("/api/Book/Get")
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        bookData: result
+                    });
+                },
+                (error) => {
+                    this.setState({
+                        error
+                    });
+                }
+            )
+    }
+
+
+    deleteBook(id) {
+        fetch('api/Book/Delete/' + id, {
+            method: 'delete'
+        }).then(data => {
+            this.setState(
+                {
+                    bookData: this.state.bookData.filter((item) => {
+                        return (item.id != id);
+                    })
+                });
+        });
+    }
+
+    editBook(id) {
+        this.props.history.push("/addbook/" + id);
+    }
+
     render() {
         return (
             <div>
@@ -21,129 +64,30 @@ export default class Book extends React.Component {
                         <table className="table table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th>
-                                        <span className="custom-checkbox">
-                                            <input type="checkbox" id="selectAll" />
-                                            <label htmlFor="selectAll" />
-                                        </span>
-                                    </th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Address</th>
-                                    <th>Phone</th>
-                                    <th>Actions</th>
+                                    <th>Id</th>
+                                    <th>Title</th>
+                                    <th>Category</th>
+                                    <th>Author</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <span className="custom-checkbox">
-                                            <input type="checkbox" id="checkbox1" name="options[]" defaultValue={1} />
-                                            <label htmlFor="checkbox1" />
-                                        </span>
-                                    </td>
-                                    <td>Thomas Hardy</td>
-                                    <td>thomashardy@mail.com</td>
-                                    <td>89 Chiaroscuro Rd, Portland, USA</td>
-                                    <td>(171) 555-2222</td>
-                                    <td>
-                                        <a href="#editEmployeeModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit"><FaPen /></i></a>
-                                        <a href="#deleteEmployeeModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete"><FaTrash /></i></a>
-                                    </td>
-                                </tr>   
+                                {this.state.bookData.map((item, i) => {
+                                    return (
+                                        <tr key={i}>
+                                            <td>{item.id}</td>
+                                            <td>{item.name}</td>
+                                            <td>{item.bookCategory.name}</td>
+                                            <td>{item.author.name}</td>
+                                            <td>
+                                                <a onClick={(id) => this.editBook(item.id)} className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Edit"><FaPen /></i></a>
+                                                <a onClick={(id) => this.deleteBook(item.id)} className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Delete"><FaTrash /></i></a>
+                                            </td>
+                                        </tr>
+                                    )
+                                })}
                             </tbody>
                         </table>
-                    </div>
-                </div>
-                {/* Edit Modal HTML */}
-                <div id="addEmployeeModal" className="modal fade">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <form>
-                                <div className="modal-header">
-                                    <h4 className="modal-title">Add Employee</h4>
-                                    <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                </div>
-                                <div className="modal-body">
-                                    <div className="form-group">
-                                        <label>Name</label>
-                                        <input type="text" className="form-control" required />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Email</label>
-                                        <input type="email" className="form-control" required />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Address</label>
-                                        <textarea className="form-control" required defaultValue={""} />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Phone</label>
-                                        <input type="text" className="form-control" required />
-                                    </div>
-                                </div>
-                                <div className="modal-footer">
-                                    <input type="button" className="btn btn-default" data-dismiss="modal" defaultValue="Cancel" />
-                                    <input type="submit" className="btn btn-success" defaultValue="Add" />
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                {/* Edit Modal HTML */}
-                <div id="editEmployeeModal" className="modal fade">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <form>
-                                <div className="modal-header">
-                                    <h4 className="modal-title">Edit Employee</h4>
-                                    <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                </div>
-                                <div className="modal-body">
-                                    <div className="form-group">
-                                        <label>Name</label>
-                                        <input type="text" className="form-control" required />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Email</label>
-                                        <input type="email" className="form-control" required />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Address</label>
-                                        <textarea className="form-control" required defaultValue={""} />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Phone</label>
-                                        <input type="text" className="form-control" required />
-                                    </div>
-                                </div>
-                                <div className="modal-footer">
-                                    <input type="button" className="btn btn-default" data-dismiss="modal" defaultValue="Cancel" />
-                                    <input type="submit" className="btn btn-info" defaultValue="Save" />
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                {/* Delete Modal HTML */}
-                <div id="deleteEmployeeModal" className="modal fade">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <form>
-                                <div className="modal-header">
-                                    <h4 className="modal-title">Delete Employee</h4>
-                                    <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                </div>
-                                <div className="modal-body">
-                                    <p>Are you sure you want to delete these Records?</p>
-                                    <p className="text-warning"><small>This action cannot be undone.</small></p>
-                                </div>
-                                <div className="modal-footer">
-                                    <input type="button" className="btn btn-default" data-dismiss="modal" defaultValue="Cancel" />
-                                    <input type="submit" className="btn btn-danger" defaultValue="Delete" />
-                                </div>
-                            </form>
-                        </div>
                     </div>
                 </div>
             </div>
