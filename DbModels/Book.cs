@@ -7,5 +7,7 @@ namespace ReactBookLibrary.DbModels
         public string Name { get; set; }
         public BookCategory BookCategory { get; set; }
         public Author Author { get; set; }
+        public string CategoryName { get; set; }
+        public string AuthorName { get; set; }
     }
 }

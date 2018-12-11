@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import { FaCog, FaFilter, FaAngleDoubleLeft, FaAngleDoubleRight } from 'react-icons/fa';
-import { Button } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
 import Book from './wwwroot/components/book/book.js';
 import AddBook from './wwwroot/components/book/addbook.js';
 import BookCategory from './wwwroot/components/bookcategory/bookcategory.js';
+import AddBookCategory from './wwwroot/components/bookcategory/addbookcategory.js';
 import Author from './wwwroot/components/author/author.js';
+import AddAuthor from './wwwroot/components/author/addauthor.js';
 import NotFound from './wwwroot/components/errorpages/notfound.js';
 
 export default class App extends React.Component {
@@ -48,7 +48,9 @@ export default class App extends React.Component {
                         <Route path="/addbook" component={AddBook} />
                         <Route path="/editbook/:id" component={AddBook} />
                         <Route path="/bookcategory" component={BookCategory} />
+                        <Route path="/addbookcategory" component={AddBookCategory} />
                         <Route path="/author" component={Author} />
+                        <Route path="/addauthor" component={AddAuthor} />
                         <Route component={NotFound} />
                      </Switch>
                   </div>

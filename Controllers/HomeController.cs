@@ -26,6 +26,13 @@ namespace ReactBookLibrary.Controllers
         public IEnumerable<Book> GetBooks()
         {
             var books = _context.Books.Include(x => x.BookCategory).Include(x => x.Author).ToListAsync().Result;
+
+            foreach(Book bookItem in books)
+            {
+               bookItem.CategoryName = bookItem.BookCategory.Name;
+               bookItem.AuthorName = bookItem.Author.Name;
+            }
+
             return books;
         }
 
@@ -89,10 +96,40 @@ namespace ReactBookLibrary.Controllers
 
         [HttpDelete]
         [Route("api/Book/Delete")]
-        public int Delete(Guid id)
+        public int Delete(int id)
         {
             Book book = _context.Books.Find(id);
             _context.Books.Remove(book);
+            return _context.SaveChanges();
+        }
+
+        [HttpPost]
+        [Route("api/Category/Create")]
+        public int CreateCategory(BookCategory bookCategory)
+        {
+            BookCategory category = new BookCategory()
+            {
+                Id = _context.BookCategories.ToListAsync().Result.OrderByDescending(x => x.Id).FirstOrDefault().Id + 1,
+                Name = bookCategory.Name
+            };
+
+            _context.BookCategories.Add(category);
+
+            return _context.SaveChanges();
+        }
+
+        [HttpPost]
+        [Route("api/Author/Create")]
+        public int CreateAuthor(Author bookAuthor)
+        {
+            Author author = new Author()
+            {
+                Id = _context.Authors.ToListAsync().Result.OrderByDescending(x => x.Id).FirstOrDefault().Id + 1,
+                Name = bookAuthor.Name
+            };
+
+            _context.Authors.Add(author);
+
             return _context.SaveChanges();
         }
     }

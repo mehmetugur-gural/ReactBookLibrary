@@ -1,15 +1,16 @@
 import React from 'react';
-import { FaPlusCircle, FaTrash, FaPen } from 'react-icons/fa';
+import { FaPlusCircle, FaTrash, FaPen, FaSearch } from 'react-icons/fa';
 
 export default class Book extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { bookData: [] };
+        this.state = { bookData: [], updatedBookData: [] };
 
         this.deleteBook = this.deleteBook.bind(this);
         this.editBook = this.editBook.bind(this);
         this.addBook = this.addBook.bind(this);
+        this.filterBooks = this.filterBooks.bind(this);
     }
 
     componentDidMount() {
@@ -18,7 +19,8 @@ export default class Book extends React.Component {
             .then(
                 (result) => {
                     this.setState({
-                        bookData: result
+                        bookData: result,
+                        updatedBookData: result
                     });
                 },
                 (error) => {
@@ -43,6 +45,17 @@ export default class Book extends React.Component {
         });
     }
 
+    filterBooks(e) {
+        var updatedList = this.state.bookData;
+        updatedList = updatedList.filter((item) => {
+            return Object.keys(item).some(key => item[key].toString().toLowerCase().search(e.target.value.toLowerCase()) !== -1);
+        });
+
+        this.setState({
+            updatedBookData: updatedList,
+        });
+    }
+
     editBook(id) {
         this.props.history.push("/editbook/" + id);
     }
@@ -61,8 +74,14 @@ export default class Book extends React.Component {
                                 <div className="col-sm-6">
                                     <h2>Manage <b>Books</b></h2>
                                 </div>
-                                <div className="col-sm-6">
-                                    <a onClick={(id) => this.addBook(0)}  className="btn btn-success"><i className="material-icons"><FaPlusCircle /></i> <span>Add New Book</span></a>
+                                <div className="col-sm-3">
+                                    <a onClick={(id) => this.addBook(0)} className="btn btn-success" style={{ height: 38 + 'px' }}><i className="material-icons"><FaPlusCircle /></i> <span>Add New Book</span></a>
+                                </div>
+                                <div className="col-sm-3">
+                                    <div className="form-group has-search">
+                                        <span className="fa fa-search form-control-feedback"><FaSearch /></span>
+                                        <input type="text" className="form-control" placeholder="Search" onChange={this.filterBooks} />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -77,7 +96,7 @@ export default class Book extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {this.state.bookData.map((item, i) => {
+                                {this.state.updatedBookData.map((item, i) => {
                                     return (
                                         <tr key={i}>
                                             <td>{item.id}</td>
